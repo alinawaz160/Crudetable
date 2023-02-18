@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- <link rel="stylesheet" href="style.css"> -->
+    <style>
+        /* Style the header */
+        .header {
+            background-color: #b08a8a;
+            color: #fff;
+            padding: 40px;
+            text-align: center;
+        }
+
+        /* Style the title */
+        h2 {
+            margin: 0;
+        }
+        /* Style the input field */
+        #myInput {
+            border: none;
+            border-radius: 20px;
+            background-color: #f2f2f2;
+            box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+            font-size: 16px;
+            padding: 12px 16px;
+            width: 98%;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        /* Add a placeholder style to the input field */
+        #myInput::placeholder {
+            color: #999;
+        }
+
+        /* Add a focus style to the input field */
+        #myInput:focus {
+            outline: none;
+            background-color: #fff;
+            box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Add a transition effect to the input field */
+        #myInput {
+            transition: box-shadow 0.3s ease-in-out;
+        }
+
+        /* Style the Add button */
+        .addBtn {
+            background-color: #000000;
+            color: #fff;
+            border: none;
+            border-radius: 20px;
+            box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+            cursor: pointer;
+            font-size: 16px;
+            padding: 10px 43px;
+            margin-left: 10px;
+            transition: box-shadow 0.3s ease-in-out;
+        }
+
+        /* Add a hover effect to the Add button */
+        .addBtn:hover {
+            background-color: #797979;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Add a focus style to the Add button */
+        .addBtn:focus {
+            outline: none;
+        }
+
+        /* Add a transition effect to the Add button */
+        .addBtn {
+            transition: box-shadow 0.3s ease-in-out;
+        }
+
+        /* Style the list */
+        #myUL {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        /* Style the list items */
+        #myUL li {
+            margin: 10px 0;
+            padding: 10px;
+            background-color: #f2f2f2;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        /* Style the checked items */
+        #myUL li.checked {
+            background-color: #4CAF50;
+            color: #fff;
+            text-decoration: line-through;
+        }
+
+        /* Add hover effect to list items */
+        #myUL li:hover {
+            background-color: #ddd;
+        }
+
+        /* Style the delete button */
+        .close {
+            float: right;
+            font-size: 20px;
+            font-weight: bold;
+            color: #f44336;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        /* Add hover effect to the delete button */
+        .close:hover {
+            color: #fff;
+            background-color: #f44336;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="myDIV" class="header">
+        <h2>To Do List</h2>
+        <input type="text" id="myInput" placeholder="Enter What you want to schedule for today...">
+        <span onclick="newElement()" class="addBtn">Add</span>
+    </div>
+
+    <ul id="myUL">
+        <li>Study</li>
+        <li class="checked">Work</li>
+        <li>Exercise</li>
+    </ul>
+</body>
+
+<script>
+    var myNodelist = document.getElementsByTagName("LI");
+    var i;
+    for (i = 0; i < myNodelist.length; i++) {
+        var span = document.createElement("SPAN");
+        var txt = document.createTextNode("\u00D7");
+        span.className = "close";
+        span.appendChild(txt);
+        myNodelist[i].appendChild(span);
+    }
+
+    // Click on a close button to hide the current list item
+    var close = document.getElementsByClassName("close");
+    var i;
+    for (i = 0; i < close.length; i++) {
+        close[i].onclick = function () {
+            var div = this.parentElement;
+            div.style.display = "none";
+        }
+    }
+
+    // Add a "checked" symbol when clicking on a list item
+    var list = document.querySelector('ul');
+    list.addEventListener('click', function (ev) {
+        if (ev.target.tagName === 'LI') {
+            ev.target.classList.toggle('checked');
+        }
+    }, false);
+
+    // Create a new list item when clicking on the "Add" button
+    function newElement() {
+        var li = document.createElement("li");
+        var inputValue = document.getElementById("myInput").value;
+        var t = document.createTextNode(inputValue);
+        li.appendChild(t);
+        if (inputValue === '') {
+            alert("You must write something!");
+        } else {
+            document.getElementById("myUL").appendChild(li);
+        }
+        document.getElementById("myInput").value = "";
+
+        var span = document.createElement("SPAN");
+        var txt = document.createTextNode("\u00D7");
+        span.className = "close";
+        span.appendChild(txt);
+        li.appendChild(span);
+
+        for (i = 0; i < close.length; i++) {
+            close[i].onclick = function () {
+                var div = this.parentElement;
+                div.style.display = "none";
+            }
+        }
+    }
+</script>
+
+</html>
